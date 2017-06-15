@@ -1,0 +1,10 @@
+html {
+  overflow-y: scroll;
+}
+
+.query-block {
+  background-color: #fff;
+  border: 1px dashed #ccc;
+  padding: 20px;
+  margin: 20px 0;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Query UI</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="query.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="query-block">
+          <form id="query-form" method="GET" action="/query">
+            <p>Filter</p>
+            <div id="filters">
+            </div>
+
+            <p>Group By</p>
+            <div id="grouppings">
+            </div>
+
+            <p>Metrics</p>
+            <div id="metrics">
+            </div>
+
+            <button type="submit" class="btn btn-success">Query</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="row" style="height:25px;"></div>
+
+      <div id="progress" class="row text-center hide"><span class="fa fa-spinner fa-spin fa-2x"></span></div>
+
+      <div class="row">
+        <table id="table" class="table">
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Templates -->
+    <div class="hide">
+      <div id="filter" class="filter form-group form-group-sm row">
+        <div class="col-xs-5">
+          <select class="form-control" id="filter-field" name="fname">
+            <option disabled selected value></option>
+          </select>
+        </div>
+        <div class="col-xs-1">
+          <select class="form-control" id="filter-op" name="fop">
+            <option disabled selected value></option>
+            <option value="ge">&gt;=</option>
+            <option value="le">&lt;=</option>
+            <option value="gt">&gt;</option>
+            <option value="lt">&lt;</option>
+            <option value="eq">=</option>
+          </select>
+        </div>
+        <div class="col-xs-5">
+          <input type="text" class="form-control" id="filter-val" name="fval">
+        </div>
+        <div class="col-xs-1">
+          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this, '.filter');">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+          </button>
+          <button class="btn btn-link btn-sm" type="button" onclick="add_element('#filter', '#filters');">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <div id="groupping" class="groupping form-group form-group-sm row">
+        <div class="col-xs-5">
+          <select class="form-control" id="dim-name" name="dim">
+            <option disabled selected value></option>
+          </select>
+        </div>
+        <div class="col-xs-1">
+          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this, '.groupping');">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+          </button>
+          <button class="btn btn-link btn-sm" type="button" onclick="add_element('#groupping', '#grouppings');">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <div id="metric" class="metric form-group form-group-sm row">
+        <div class="col-xs-5">
+          <select class="form-control" id="metric-name" name="metric">
+            <option disabled selected value></option>
+          </select>
+        </div>
+        <div class="col-xs-1">
+          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this, '.metric');">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+          </button>
+          <button class="btn btn-link btn-sm" type="button" onclick="add_element('#metric', '#metrics');">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="query.js"></script>
+  </body>
+</html>
