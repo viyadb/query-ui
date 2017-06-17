@@ -2,9 +2,12 @@ html {
   overflow-y: scroll;
 }
 
+.container {
+  padding-top: 20px;
+}
+
 .query-block {
   background-color: #fff;
   border: 1px dashed #ccc;
   padding: 20px;
-  margin: 20px 0;
 }

@@ -12,17 +12,14 @@
   (-> (response/response (json/generate-string k))
       (response/content-type "application/json")))
 
-(defn- vectorize [e]
-  (if (coll? e) e [e]))
-
 (defn- agg-query [config params]
-  (viyadb/agg-query config
-                    (vectorize (get params "dim"))
-                    (vectorize (get params "metric"))
-                    (map vector
-                         (vectorize (get params "fname"))
-                         (vectorize (get params "fop"))
-                         (vectorize (get params "fval")))))
+  (let [extract-param (fn [n] (let [p (get params n)] (if (coll? p) p [p])))]
+    (viyadb/agg-query config
+                      (extract-param "dim")
+                      (extract-param "metric")
+                      (map vector (extract-param "fname") (extract-param "fop") (extract-param "fval"))
+                      (map vector (extract-param "sort-col")
+                           (map #(Boolean/parseBoolean %1) (extract-param "sort-asc"))))))
 
 (defn app-routes [config]
   (comp-core/routes

@@ -15,6 +15,10 @@
   <body>
     <div class="container">
       <div class="row">
+        <div class="hide alert alert-danger" role="alert" id="alert"></div>
+      </div>
+
+      <div class="row">
         <div class="query-block">
           <form id="query-form" method="GET" action="/query">
             <p>Filter</p>
@@ -29,14 +33,20 @@
             <div id="metrics">
             </div>
 
+            <p>Order By</p>
+            <div id="sorts">
+            </div>
+
             <button type="submit" class="btn btn-success">Query</button>
           </form>
         </div>
       </div>
 
-      <div class="row" style="height:25px;"></div>
+      <div class="row" style="height:40px;"></div>
 
-      <div id="progress" class="row text-center hide"><span class="fa fa-spinner fa-spin fa-2x"></span></div>
+      <div id="progress" class="row text-center hide">
+        <span class="fa fa-spinner fa-spin fa-2x"></span>
+      </div>
 
       <div class="row">
         <table id="table" class="table">
@@ -47,7 +57,7 @@
 
     <!-- Templates -->
     <div class="hide">
-      <div id="filter" class="filter form-group form-group-sm row">
+      <div id="filter" class="form-group form-group-sm row">
         <div class="col-xs-5">
           <select class="form-control" id="filter-field" name="fname">
             <option disabled selected value></option>
@@ -67,42 +77,64 @@
           <input type="text" class="form-control" id="filter-val" name="fval">
         </div>
         <div class="col-xs-1">
-          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this, '.filter');">
+          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this);">
             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
           </button>
-          <button class="btn btn-link btn-sm" type="button" onclick="add_element('#filter', '#filters');">
+          <button class="btn btn-link btn-sm" type="button" onclick="add_element('filter');">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </button>
         </div>
       </div>
 
-      <div id="groupping" class="groupping form-group form-group-sm row">
+      <div id="groupping" class="form-group form-group-sm row">
         <div class="col-xs-5">
           <select class="form-control" id="dim-name" name="dim">
             <option disabled selected value></option>
           </select>
         </div>
         <div class="col-xs-1">
-          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this, '.groupping');">
+          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this);">
             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
           </button>
-          <button class="btn btn-link btn-sm" type="button" onclick="add_element('#groupping', '#grouppings');">
+          <button class="btn btn-link btn-sm" type="button" onclick="add_element('groupping');">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </button>
         </div>
       </div>
 
-      <div id="metric" class="metric form-group form-group-sm row">
+      <div id="metric" class="form-group form-group-sm row">
         <div class="col-xs-5">
           <select class="form-control" id="metric-name" name="metric">
             <option disabled selected value></option>
           </select>
         </div>
         <div class="col-xs-1">
-          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this, '.metric');">
+          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this);">
             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
           </button>
-          <button class="btn btn-link btn-sm" type="button" onclick="add_element('#metric', '#metrics');">
+          <button class="btn btn-link btn-sm" type="button" onclick="add_element('metric');">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <div id="sort" class="form-group form-group-sm row">
+        <div class="col-xs-5">
+          <select class="form-control" id="sort-col" name="sort-col">
+            <option disabled selected value></option>
+          </select>
+        </div>
+        <div class="col-xs-1">
+          <select class="form-control" id="sort-col" name="sort-asc">
+            <option value="false" selected>DESC</option>
+            <option value="true">ASC</option>
+          </select>
+        </div>
+        <div class="col-xs-1">
+          <button class="btn btn-link btn-sm hide" type="button" onclick="remove_element(this);">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+          </button>
+          <button class="btn btn-link btn-sm" type="button" onclick="add_element('sort');">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </button>
         </div>
