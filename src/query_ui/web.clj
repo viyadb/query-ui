@@ -13,7 +13,10 @@
       (response/content-type "application/json")))
 
 (defn- agg-query [config params]
-  (let [extract-param (fn [n] (let [p (get params n)] (if (coll? p) p [p])))]
+  (let [extract-param (fn [n] (let [p (get params n)] (cond
+                                                        (nil? p) [] 
+                                                        (coll? p) p
+                                                        :else [p])))]
     (viyadb/agg-query config
                       (extract-param "dim")
                       (extract-param "metric")
