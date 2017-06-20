@@ -43,6 +43,7 @@
   }
 
   $(function() {
+    $("#progress").removeClass("hide");
     $.get("/meta", function(data) {
       if (!data) {
         show_error("ViaDB instance seems to be down");
@@ -62,6 +63,8 @@
       add_element("groupping");
       add_element("metric");
       add_element("sort");
+    }).always(function() {
+      $("#progress").addClass("hide");
     });
 
     $("#query-form").submit(function(e) {
