@@ -39,6 +39,7 @@
       content.push("</tr>");
     }
     $("#table tbody").html(content.join(""));
+    $("#stats-rows").text("rows=" + data.length);
   }
 
   $(function() {
@@ -67,7 +68,10 @@
       $("#table tbody").empty();
       $("#progress").removeClass("hide");
       $("#alert").addClass("hide");
+      $("#stats-rows,#stats-time").text("");
+
       var form = $(this);
+      var req_start = new Date().getTime();
       $.ajax({
         type: form.attr("method"),
         url: form.attr("action"),
@@ -81,6 +85,7 @@
         },
         complete: function() {
           $("#progress").addClass("hide");
+          $("#stats-time").text("time=" + (new Date().getTime() - req_start) + "ms");
         }
       });
       e.preventDefault();

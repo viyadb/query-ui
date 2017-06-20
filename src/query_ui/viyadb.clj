@@ -13,14 +13,15 @@
     (for [l (line-seq (BufferedReader. (StringReader. tsv)))]
       (clojure.string/split l #"\t"))))
 
-(defn agg-query [config dims metrics filters sortby]
+(defn agg-query [config dims metrics filters sortby limit]
   (let [uri (str (:viya-url config) "/query")
-        query {:type "aggregate"
-               :table (:viya-table config)
-               :select (map #(assoc {} :column %1) (concat dims metrics))
-               :filter {:op "and"
-                        :filters (map #(zipmap [:column :op :value] %1) filters)}
-               :sort (map #(zipmap [:column :ascending] %1) sortby)}]
+        query (cond-> {:type "aggregate"
+                       :table (:viya-table config)
+                       :select (map #(assoc {} :column %1) (concat dims metrics))
+                       :filter {:op "and"
+                                :filters (map #(zipmap [:column :op :value] %1) filters)}
+                       :sort (map #(zipmap [:column :ascending] %1) sortby)}
+                (> limit 0) (assoc :limit limit))]
     (log/info query)
     (-> @(http-client/post uri {:body (json/generate-string query)})
         :body

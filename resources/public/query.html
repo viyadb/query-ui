@@ -37,12 +37,22 @@
             <div id="sorts">
             </div>
 
+            <p>Limit</p>
+            <div id="limit" class="form-group form-group-sm row">
+              <div class="col-xs-5">
+                <input class="form-control" id="limit-input" name="limit"></input>
+              </div>
+            </div>
+
             <button type="submit" class="btn btn-success">Query</button>
           </form>
         </div>
       </div>
 
-      <div class="row" style="height:40px;"></div>
+      <div class="row stats">
+        <div id="stats-rows" class="col-xs-2"></div>
+        <div id="stats-time" class="col-xs-2"></div>
+      </div>
 
       <div id="progress" class="row text-center hide">
         <span class="fa fa-spinner fa-spin fa-2x"></span>

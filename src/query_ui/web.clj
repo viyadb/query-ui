@@ -13,16 +13,14 @@
       (response/content-type "application/json")))
 
 (defn- agg-query [config params]
-  (let [extract-param (fn [n] (let [p (get params n)] (cond
-                                                        (nil? p) [] 
-                                                        (coll? p) p
-                                                        :else [p])))]
+  (let [extract-param (fn [n] (let [p (get params n)] (remove empty? (if (coll? p) p [p]))))]
     (viyadb/agg-query config
                       (extract-param "dim")
                       (extract-param "metric")
                       (map vector (extract-param "fname") (extract-param "fop") (extract-param "fval"))
                       (map vector (extract-param "sort-col")
-                           (map #(Boolean/parseBoolean %1) (extract-param "sort-asc"))))))
+                           (map #(Boolean/parseBoolean %1) (extract-param "sort-asc")))
+                      (let [l (get params "limit")] (if (empty? l) 0 (Integer/parseInt l))))))
 
 (defn app-routes [config]
   (comp-core/routes

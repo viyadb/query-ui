@@ -11,3 +11,8 @@ html {
   border: 1px dashed #ccc;
   padding: 20px;
 }
+
+.stats {
+  padding: 15px 0;
+  color: #acacac;
+}
