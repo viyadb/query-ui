@@ -13,5 +13,5 @@ ViyaDB Query UI for demo purposes.
 
 ## Running
 
-    java -jar target/query-ui-0.1.0-standalone.jar
+    java -jar target/query-ui-0.1.0-standalone.jar <table name>
 
